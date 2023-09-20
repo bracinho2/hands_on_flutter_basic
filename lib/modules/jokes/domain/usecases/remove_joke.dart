@@ -8,7 +8,7 @@ class RemoveJoke implements RemoveJokeUsecase {
   RemoveJoke(this._repository);
 
   @override
-  Future<RemoveJokeResult> call({required String uid}) async {
+  Future<DeleteJokeResult> call({required String uid}) async {
     return await _repository.removeJoke(uid: uid);
   }
 }

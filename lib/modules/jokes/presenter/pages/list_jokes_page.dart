@@ -57,7 +57,7 @@ class _ListJokesPageState extends State<ListJokesPage> {
         if (state is JokeSuccessState) {
           final jokes = state.joke;
           return Scaffold(
-            backgroundColor: Colors.black12,
+            backgroundColor: Colors.black87,
             floatingActionButton: FloatingActionButton(
               onPressed: () => Modular.to.pushNamed('/jokes/add'),
               child: const Icon(Icons.add),
@@ -69,8 +69,30 @@ class _ListJokesPageState extends State<ListJokesPage> {
             ),
             body: Column(
               children: [
+                TextFormField(
+                  onChanged: (value) {
+                    _store.filterList(filter: value);
+                  },
+                  style: const TextStyle(
+                    color: Colors.amber,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Filtrar Lista',
+                    labelStyle: const TextStyle(
+                      color: Colors.amber,
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Colors.amber,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        5,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: mediaQueryData.size.height * .87,
+                  height: mediaQueryData.size.height * .8,
                   child: ListView.builder(
                     itemCount: jokes.length,
                     itemBuilder: (context, index) {
@@ -81,7 +103,12 @@ class _ListJokesPageState extends State<ListJokesPage> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Modular.to.pushNamed(
+                                    '/jokes/add',
+                                    arguments: item,
+                                  );
+                                },
                                 padding: EdgeInsets.zero,
                                 icon: const Icon(
                                   Icons.edit,

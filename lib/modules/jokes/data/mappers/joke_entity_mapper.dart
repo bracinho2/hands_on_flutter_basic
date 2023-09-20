@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:hands_on_flutter_basic/modules/jokes/data/mappers/joke_category_entity_mapper.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/entities/joke_entity.dart';
 
 class JokeEntityMapper {

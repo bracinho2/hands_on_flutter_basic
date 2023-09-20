@@ -12,7 +12,7 @@ class JokeRepositoryImpl implements JokeRepository {
   final JokeDatasource _datasource;
 
   @override
-  Future<CreateJokeResult> createJock({required JokeEntity joke}) async {
+  Future<CreateJokeResult> createJoke({required JokeEntity joke}) async {
     try {
       final result = await _datasource.createJoke(joke: joke);
       return Right(result);
@@ -49,7 +49,7 @@ class JokeRepositoryImpl implements JokeRepository {
   }
 
   @override
-  Future<RemoveJokeResult> removeJoke({required String uid}) async {
+  Future<DeleteJokeResult> removeJoke({required String uid}) async {
     try {
       final result = await _datasource.removeJoke(uid: uid);
       return Right(result);

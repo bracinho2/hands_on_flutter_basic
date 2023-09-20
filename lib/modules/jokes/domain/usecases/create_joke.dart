@@ -9,6 +9,6 @@ class CreateJoke implements CreateJokeUsecase {
   CreateJoke(this._repository);
   @override
   Future<CreateJokeResult> call({required JokeEntity joke}) async {
-    return await _repository.createJock(joke: joke);
+    return await _repository.createJoke(joke: joke);
   }
 }

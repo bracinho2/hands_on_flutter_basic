@@ -11,8 +11,20 @@ class JokeSuccessState extends JokeState {
     required this.joke,
     required this.categories,
   });
+
+  JokeSuccessState copyWith({
+    List<JokeEntity>? joke,
+    List<JokeCategoryEntity>? categories,
+  }) {
+    return JokeSuccessState(
+      joke: joke ?? this.joke,
+      categories: categories ?? this.categories,
+    );
+  }
 }
 
 class JokeErrorState extends JokeState {}
 
 class JokeLoadingState extends JokeState {}
+
+class CreateJokeState extends JokeState {}

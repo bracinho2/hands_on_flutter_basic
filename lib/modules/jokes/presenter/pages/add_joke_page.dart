@@ -1,12 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/domain/entities/joke_entity.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/presenter/store/joke_store.dart';
 
-class AddJokePage extends StatelessWidget {
-  const AddJokePage({super.key});
+class AddJokePage extends StatefulWidget {
+  const AddJokePage({
+    super.key,
+    required this.store,
+  });
+
+  final JokeStore store;
+
+  @override
+  State<AddJokePage> createState() => _AddJokePageState();
+}
+
+class _AddJokePageState extends State<AddJokePage> {
+  JokeStore get _store => widget.store;
+
+  final formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+
+  final detailsController = TextEditingController();
+
+  final avatarController = TextEditingController();
+
+  JokeEntity? joke;
+  final args = Modular.args.data;
 
   @override
   Widget build(BuildContext context) {
+    if (args != null) {
+      joke = args;
+      nameController.text = joke!.name;
+      detailsController.text = joke!.name;
+      avatarController.text = joke!.avatar;
+    }
+
     return Scaffold(
       body: Form(
+        key: formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -27,6 +61,13 @@ class AddJokePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                controller: nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Informe o nome da Piada';
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -40,6 +81,13 @@ class AddJokePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                controller: detailsController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Informe o detalhe da piada';
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -53,13 +101,39 @@ class AddJokePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                controller: avatarController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Informe o avatar';
+                  }
+                  return null;
+                },
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
               child: const Icon(
                 Icons.save,
               ),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  if (joke != null && joke!.uid.isNotEmpty) {
+                    _store.updateJoke(
+                      uid: joke!.uid,
+                      name: nameController.text,
+                      details: detailsController.text,
+                      avatar: avatarController.text,
+                    );
+                    Modular.to.pop();
+                  } else {
+                    _store.createJoke(
+                      name: nameController.text,
+                      details: detailsController.text,
+                      avatar: avatarController.text,
+                    );
+                    Modular.to.pop();
+                  }
+                }
+              },
             ),
           ],
         ),

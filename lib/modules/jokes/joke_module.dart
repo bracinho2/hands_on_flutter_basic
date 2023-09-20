@@ -1,8 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/create_joke_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/get_joke_categories_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/remove_joke_usecase.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/update_joke_usecase.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/create_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/get_joke_categories.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/remove_joke.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/update_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/presenter/pages/add_joke_page.dart';
 
 import 'data/datasource/joke_datasource.dart';
@@ -24,8 +28,16 @@ class JokeModule extends Module {
 
         //Usecases
         Bind.lazySingleton<RemoveJokeUsecase>((i) => RemoveJoke(i())),
+        Bind.lazySingleton<CreateJokeUsecase>((i) => CreateJoke(i())),
         Bind.lazySingleton<ReadJokesUsecase>((i) => GetJokes(i())),
-        Bind.lazySingleton<JokeStore>((i) => JokeStore(i(), i(), i())),
+        Bind.lazySingleton<UpdateJokeUsecase>((i) => UpdateJoke(i())),
+        Bind.lazySingleton<JokeStore>((i) => JokeStore(
+              i(),
+              i(),
+              i(),
+              i(),
+              i(),
+            )),
       ];
 
   @override
@@ -38,7 +50,9 @@ class JokeModule extends Module {
         ),
         ChildRoute(
           '/add',
-          child: (context, args) => const AddJokePage(),
+          child: (context, args) => AddJokePage(
+            store: context.read(),
+          ),
         ),
       ];
 }
