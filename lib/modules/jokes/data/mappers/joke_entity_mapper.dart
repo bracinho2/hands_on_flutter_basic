@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:hands_on_flutter_basic/modules/jokes/domain/entities/joke_entity.dart';
 
+import '../../domain/errors/errors.dart';
+
 class JokeEntityMapper {
   static JokeEntity fromMap({required Map<String, dynamic> map}) {
     try {
@@ -14,7 +16,7 @@ class JokeEntityMapper {
     } catch (e) {
       log(e.toString());
       log(StackTrace.current.toString());
-      rethrow;
+      throw JokeMapperError();
     }
   }
 }

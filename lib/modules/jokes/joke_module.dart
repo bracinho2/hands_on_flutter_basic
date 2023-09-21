@@ -8,6 +8,7 @@ import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/get_joke_ca
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/remove_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/update_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/presenter/pages/add_joke_page.dart';
+import 'package:hands_on_flutter_basic/modules/jokes/presenter/pages/minha_pagina.dart';
 
 import 'data/datasource/joke_datasource.dart';
 import 'data/endpoint/joke_memory_datasource.dart';
@@ -29,7 +30,7 @@ class JokeModule extends Module {
         //Usecases
         Bind.lazySingleton<RemoveJokeUsecase>((i) => RemoveJoke(i())),
         Bind.lazySingleton<CreateJokeUsecase>((i) => CreateJoke(i())),
-        Bind.lazySingleton<ReadJokesUsecase>((i) => GetJokes(i())),
+        Bind.lazySingleton<ReadJokesUsecase>((i) => ReadJokes(i())),
         Bind.lazySingleton<UpdateJokeUsecase>((i) => UpdateJoke(i())),
         Bind.lazySingleton<JokeStore>((i) => JokeStore(
               i(),
@@ -53,6 +54,10 @@ class JokeModule extends Module {
           child: (context, args) => AddJokePage(
             store: context.read(),
           ),
+        ),
+        ChildRoute(
+          '/minhapagina',
+          child: (context, args) => const MinhaPagina(),
         ),
       ];
 }

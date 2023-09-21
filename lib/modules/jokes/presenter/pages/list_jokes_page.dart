@@ -57,7 +57,8 @@ class _ListJokesPageState extends State<ListJokesPage> {
         if (state is JokeSuccessState) {
           final jokes = state.joke;
           return Scaffold(
-            backgroundColor: Colors.black87,
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Colors.black12,
             floatingActionButton: FloatingActionButton(
               onPressed: () => Modular.to.pushNamed('/jokes/add'),
               child: const Icon(Icons.add),
@@ -77,7 +78,7 @@ class _ListJokesPageState extends State<ListJokesPage> {
                     color: Colors.amber,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Filtrar Lista',
+                    hintText: 'Buscar',
                     labelStyle: const TextStyle(
                       color: Colors.amber,
                     ),
@@ -134,7 +135,7 @@ class _ListJokesPageState extends State<ListJokesPage> {
                           ),
                         ),
                         title: Text(
-                          '${item.uid}. ${item.name}',
+                          '${item.uid}. ${item.details}',
                           style: const TextStyle(
                             color: Colors.amber,
                           ),

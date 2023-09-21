@@ -12,6 +12,7 @@ class JokeMemoryDatasource implements JokeDatasource {
   @override
   Future<bool> createJoke({required JokeEntity joke}) async {
     _memoryList.add(joke);
+    _memoryList.sort(((a, b) => a.uid.compareTo(b.uid)));
 
     return true;
   }
@@ -33,6 +34,7 @@ class JokeMemoryDatasource implements JokeDatasource {
   @override
   Future<bool> removeJoke({required String uid}) async {
     _memoryList.remove(_memoryList.firstWhere((element) => element.uid == uid));
+    _memoryList.sort(((a, b) => a.uid.compareTo(b.uid)));
     return true;
   }
 
