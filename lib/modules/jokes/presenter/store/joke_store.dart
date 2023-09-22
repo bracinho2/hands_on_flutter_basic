@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/entities/joke_category_entity.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/create_joke_usecase.dart';
-import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/get_joke_categories_usecase.dart';
+
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/read_jokes_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/remove_joke_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/update_joke_usecase.dart';
@@ -15,7 +15,6 @@ class JokeStore extends ValueNotifier<JokeState> {
   JokeStore(
     this._createJokeUsecase,
     this._getJokesUsecase,
-    this._getJokeCategoriesUsecase,
     this._removeJokeUsecase,
     this._updateJokeUsecase,
   ) : super(JokeLoadingState());
@@ -23,11 +22,10 @@ class JokeStore extends ValueNotifier<JokeState> {
   final CreateJokeUsecase _createJokeUsecase;
   final ReadJokesUsecase _getJokesUsecase;
   final UpdateJokeUsecase _updateJokeUsecase;
-  final GetJokeCategoriesUsecase _getJokeCategoriesUsecase;
+
   final RemoveJokeUsecase _removeJokeUsecase;
 
   List<JokeEntity> _jokes = [];
-  List<JokeCategoryEntity> _categories = [];
 
   Future<void> init() async {
     await _getJoke();
@@ -99,22 +97,18 @@ class JokeStore extends ValueNotifier<JokeState> {
 
   void setSuccessState({List<JokeCategoryEntity>? categories}) {
     if (categories != null) {
-      value = JokeSuccessState(joke: _jokes, categories: categories);
+      value = JokeSuccessState(
+        joke: _jokes,
+      );
     } else {
-      value = JokeSuccessState(joke: _jokes, categories: _categories);
+      value = JokeSuccessState(
+        joke: _jokes,
+      );
     }
   }
 
   void setErrorState() {
     value = JokeErrorState();
-  }
-
-  Future<void> _getJokeCategories() async {
-    final result = await _getJokeCategoriesUsecase();
-    result.fold(
-      (l) => setErrorState(),
-      (success) => _categories = success,
-    );
   }
 
   Future<void> _getJoke() async {

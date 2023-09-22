@@ -12,5 +12,4 @@ abstract class JokeRepository {
   Future<DeleteJokeResult> removeJoke({
     required String uid,
   });
-  Future<GetJokesCategoryResult> getJokeCategories();
 }

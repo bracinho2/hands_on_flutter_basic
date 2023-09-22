@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hands_on_flutter_basic/core/splash/splash_page.dart';
+import 'package:hands_on_flutter_basic/modules/beer/beer_module.dart';
 
 import 'core/core_module.dart';
 import 'modules/jokes/joke_module.dart';
@@ -20,6 +21,10 @@ class AppModule extends Module {
         ModuleRoute(
           '/jokes',
           module: JokeModule(),
+        ),
+        ModuleRoute(
+          '/beers',
+          module: BeerModule(),
         ),
       ];
 }

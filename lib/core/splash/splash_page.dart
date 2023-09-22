@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> initSplash() async {
     await Future.delayed(const Duration(seconds: 3)).then((value) async {
-      Modular.to.navigate('/jokes/minhapagina');
+      Modular.to.navigate('/beers');
     });
   }
 

@@ -59,16 +59,4 @@ class JokeRepositoryImpl implements JokeRepository {
       return Left(JokeRepositoryError());
     }
   }
-
-  @override
-  Future<GetJokesCategoryResult> getJokeCategories() async {
-    try {
-      final result = await _datasource.getJokeCategories();
-      return Right(result);
-    } catch (e) {
-      log(e.toString());
-      log(StackTrace.current.toString());
-      return Left(JokeRepositoryError());
-    }
-  }
 }

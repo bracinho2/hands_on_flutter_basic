@@ -1,14 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/create_joke_usecase.dart';
-import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/get_joke_categories_usecase.dart';
+
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/remove_joke_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/interfaces/usecase/update_joke_usecase.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/create_joke.dart';
-import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/get_joke_categories.dart';
+
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/remove_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/domain/usecases/update_joke.dart';
 import 'package:hands_on_flutter_basic/modules/jokes/presenter/pages/add_joke_page.dart';
-import 'package:hands_on_flutter_basic/modules/jokes/presenter/pages/minha_pagina.dart';
 
 import 'data/datasource/joke_datasource.dart';
 import 'data/endpoint/joke_memory_datasource.dart';
@@ -24,8 +23,6 @@ class JokeModule extends Module {
   List<Bind> get binds => [
         Bind.lazySingleton<JokeDatasource>((i) => JokeMemoryDatasource()),
         Bind.lazySingleton<JokeRepository>((i) => JokeRepositoryImpl(i())),
-        Bind.lazySingleton<GetJokeCategoriesUsecase>(
-            (i) => GetJokeCategories(i())),
 
         //Usecases
         Bind.lazySingleton<RemoveJokeUsecase>((i) => RemoveJoke(i())),
@@ -33,7 +30,6 @@ class JokeModule extends Module {
         Bind.lazySingleton<ReadJokesUsecase>((i) => ReadJokes(i())),
         Bind.lazySingleton<UpdateJokeUsecase>((i) => UpdateJoke(i())),
         Bind.lazySingleton<JokeStore>((i) => JokeStore(
-              i(),
               i(),
               i(),
               i(),
@@ -54,10 +50,6 @@ class JokeModule extends Module {
           child: (context, args) => AddJokePage(
             store: context.read(),
           ),
-        ),
-        ChildRoute(
-          '/minhapagina',
-          child: (context, args) => const MinhaPagina(),
         ),
       ];
 }
